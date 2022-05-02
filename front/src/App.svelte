@@ -1,5 +1,6 @@
 <script lang="ts">
   import Card from "./lib/Card.svelte";
+  import Chart from "./lib/chart.svelte";
   import { Styles } from "sveltestrap";
 </script>
 
@@ -9,6 +10,7 @@
     <Card type="temperature" value={25} />
     <Card type="humidity" value={65} />
   </div>
+  <Chart />
 </main>
 
 <style>
