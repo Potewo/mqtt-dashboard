@@ -25,15 +25,9 @@ services:
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
   broker:
     container_name: broker
-    build:
-      dockerfile: ./mosquitto/Dockerfile
-    # volumes:
-    #   - ./mosquitto/config:/mosquitto/config
-    #   - ./mosquitto/data:/mosquitto/data
-    #   - ./mosquitto/log:/mosquitto/log
+    image: eclipse-mosquitto:1.6
     ports:
       - 1883:1883
-    # user: "1000:1000"
 
 volumes:
   mqtt_dashboard_mysql_data:
