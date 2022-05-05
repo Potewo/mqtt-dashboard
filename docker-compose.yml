@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    ports:
+      - "8080:1323"
+    volumes:
+      - ./server/:/go/src
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mqtt
+      TZ: 'Asia/Tokyo'
+    ports: 
+      - "3306:3306"
+    volumes:
+      - mqtt_dashboard_mysql_data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+  broker:
+    container_name: broker
+    build:
+      dockerfile: ./mosquitto/Dockerfile
+    # volumes:
+    #   - ./mosquitto/config:/mosquitto/config
+    #   - ./mosquitto/data:/mosquitto/data
+    #   - ./mosquitto/log:/mosquitto/log
+    ports:
+      - 1883:1883
+    # user: "1000:1000"
+
+volumes:
+  mqtt_dashboard_mysql_data:
