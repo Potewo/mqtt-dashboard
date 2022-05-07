@@ -37,6 +37,15 @@ services:
     image: eclipse-mosquitto:1.6
     ports:
       - 1883:1883
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
 
 volumes:
   mqtt_dashboard_mysql_data:
+  grafana_data:
