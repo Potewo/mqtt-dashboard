@@ -1,16 +1,25 @@
 version: '3'
 
 services:
-  web-server:
+  # web-server:
+  #   build:
+  #     context: .
+  #     dockerfile: ./server/Dockerfile
+  #   ports:
+  #     - "8080:1323"
+  #   volumes:
+  #     - ./server/:/go/src
+  #   depends_on:
+  #     - db
+  recorder:
     build:
       context: .
-      dockerfile: ./server/Dockerfile
-    ports:
-      - "8080:1323"
-    volumes:
-      - ./server/:/go/src
+      dockerfile: ./recorder/Dockerfile
     depends_on:
       - db
+    tty: true
+    volumes:
+      - .:/go/src
   db:
     image: mysql:8.0
     container_name: db

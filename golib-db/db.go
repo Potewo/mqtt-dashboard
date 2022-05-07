@@ -9,20 +9,30 @@ import (
 
 type Temperature struct {
 	gorm.Model
-	V float32
+	V        float32
 	SensorId uint
 }
 
 type Humidity struct {
 	gorm.Model
-	V float32
+	V        float32
 	SensorId uint
 }
 
 type AirPressure struct {
 	gorm.Model
-	V float32
+	V        float32
 	SensorId uint
+}
+
+type Co2 struct {
+	gorm.Model
+	V        float32
+	SensorId uint
+}
+
+type DBStruct interface {
+	Temperature | Humidity | AirPressure | Co2
 }
 
 var Atemperature Temperature
@@ -48,4 +58,27 @@ func connect(count uint) {
 			connect(count)
 		}
 	}
+}
+
+func Get[T DBStruct](timeRange *TimeRange, sensorIds []uint) []T {
+	db := DB
+	if timeRange != nil {
+		db = DB.Where("created_at BETWEEN ? AND ?", timeRange.Start, timeRange.End)
+	}
+	if sensorIds != nil {
+		db = db.Where("sensor_id IN ?", sensorIds)
+	}
+	values := []T{}
+	db.Find(&values)
+	return values
+}
+
+func Set[T DBStruct](value T) error {
+	ctx := DB.Create(value)
+	return ctx.Error
+}
+
+type TimeRange struct {
+	Start time.Time
+	End   time.Time
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Potewo/mqtt-dashboard/db"
+	"github.com/Potewo/mqtt-dashboard/golib-db"
 	"github.com/labstack/echo/v4"
 )
 
