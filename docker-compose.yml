@@ -21,17 +21,22 @@ services:
     volumes:
       - .:/go/src
   db:
-    image: mysql:8.0
+    image: influxdb:2.6
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mqtt
-      TZ: 'Asia/Tokyo'
+      - INFLUX_HOST="http://db:8086"
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=user
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=my_org
+      - DOCKER_INFLUXDB_INIT_BUCKET=climate
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=myadmintoken
+
     ports: 
-      - "3306:3306"
+      - "8086:8086"
     volumes:
-      - mqtt_dashboard_mysql_data:/var/lib/mysql
-      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/influxdb/data/influxdb2:/var/lib/influxdb2
+      - ./db/influxdb/data/config:/etc/influxdb2
   broker:
     container_name: broker
     image: eclipse-mosquitto:1.6

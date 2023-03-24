@@ -46,7 +46,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to parse float")
 				}
-				value := db.Temperature{V: float32(v), SensorId: 0}
+				value := db.DBStruct{SensorType: db.Temperature, SensorId: 0, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
@@ -58,7 +58,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to parse float")
 				}
-				value := db.Humidity{V: float32(v), SensorId: 0}
+				value := db.DBStruct{SensorType: db.Humidity, SensorId: 0, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
@@ -70,7 +70,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to set value to db")
 				}
-				value := db.Co2{V: float32(v), SensorId: 0}
+				value := db.DBStruct{SensorType: db.Co2, SensorId: 0, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
@@ -82,7 +82,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to set value to db")
 				}
-				value := db.Temperature{V: float32(v), SensorId: 1}
+				value := db.DBStruct{SensorType: db.Temperature, SensorId: 1, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
@@ -94,7 +94,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to set value to db")
 				}
-				value := db.Humidity{V: float32(v), SensorId: 1}
+				value := db.DBStruct{SensorType: db.Humidity, SensorId: 1, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
@@ -106,7 +106,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("failed to set value to db")
 				}
-				value := db.AirPressure{V: float32(v), SensorId: 1}
+				value := db.DBStruct{SensorType: db.AirPressure, SensorId: 1, V: float32(v)}
 				err = db.Set(value)
 				if err != nil {
 					fmt.Printf("failed to set value to db")
